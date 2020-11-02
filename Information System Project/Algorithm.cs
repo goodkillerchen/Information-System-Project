@@ -117,7 +117,7 @@ namespace Information_System_Project
                                 cnt++;
                             }
                         }
-                        if ((j1 & setNumberForK[i])==j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))//
+                        if ((j1 & setNumberForK[i])==j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))//hh
                         {
                             now++;
                             dictionaryForAllSets[j1] = now;
