@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,7 +41,35 @@ namespace Information_System_Project
             CombinationForAllK(n, k);
             int totalNum=TotalNumberForJ(n, j);
             var result=int.MaxValue;
-            Dfs(0,0,0, totalNum,ref result);
+            Random randomOrder = new Random();
+            int num = setNumberForK.Count();
+            while (num > 1)
+            {
+                num--;
+                var k = randomOrder.Next(num + 1);
+                var temp = setNumberForK[k];
+                setNumberForK[k] = setNumberForK[num];
+                setNumberForK[num] = temp;
+            }
+            var now = 0;
+            for (int j1 = (1 << s) - 1; j1 <= setNumberForK[0]; j1++)
+            {
+                int cnt = 0;
+                for (int k1 = 0; k1 < n; k1++)
+                {
+                    if ((j1 & (1 << k1)) != 0)
+                    {
+                        cnt++;
+                    }
+                }
+                if ((j1 & setNumberForK[0]) == j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))
+                {
+                    now++;
+                    dictionaryForAllSets[j1] = now;
+                }
+            }
+            visit[0] = false;
+            Dfs(1,1,now, totalNum,ref result);
             return result;
 
         }
@@ -90,9 +120,9 @@ namespace Information_System_Project
         }
         private void Dfs(int start,int setNum,int currentNumber,int totalNum,ref int result)
         {
+
             int now = currentNumber;
             Debug.WriteLine(setNum+" "+ currentNumber+" "+totalNum+" "+result);
-            
             List<int> vis = new List<int>();
             if (setNum >= result)
                 return;
@@ -107,7 +137,7 @@ namespace Information_System_Project
             {
                 if (!visit[i])
                 {
-                    for (int j1 = (1 << s) - 1; j1 < setNumberForK[i]; j1++)
+                    for (int j1 = (1 << s) - 1; j1 <= setNumberForK[i]; j1++)
                     {
                         int cnt = 0;
                         for (int k1 = 0; k1 < n; k1++)
