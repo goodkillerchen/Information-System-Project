@@ -93,7 +93,7 @@ namespace Information_System_Project
             }
         }
         private int TotalNumberForJ(int n,int j)
-        {
+        { 
             for(int i = 0; i <= n; i++)
             {
                 for(int m = 0; m <= j; m++)
@@ -147,7 +147,7 @@ namespace Information_System_Project
                                 cnt++;
                             }
                         }
-                        if ((j1 & setNumberForK[i])==j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))
+                        if ((j1 & setNumberForK[i])==j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))//hh
                         {
                             now++;
                             dictionaryForAllSets[j1] = now;
