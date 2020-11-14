@@ -1,0 +1,88 @@
+<Project>
+  <Name>Information_System_Project</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>framewoke</Name>
+    <Language>Java</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Algorithms</Name>
+        <Access>Public</Access>
+        <Location left="85" top="141" />
+        <Size width="206" height="315" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private int n</Member>
+        <Member type="Field">private int k</Member>
+        <Member type="Field">private int j</Member>
+        <Member type="Field">private int s</Member>
+        <Member type="Field">List&lt;int&gt; setNumberForK</Member>
+        <Member type="Field">Dictionary&lt;int,int&gt; dictionaryForAllSets</Member>
+        <Member type="Field">bool[] visit</Member>
+        <Member type="Field">List&lt;int&gt; totalList</Member>
+        <Member type="Field">bool[] judgeNumber</Member>
+        <Member type="Field">int[] C</Member>
+        <Member type="Constructor">public Algorithms(int n, int k, int j, int s, List&lt;int&gt; totalList, bool[] judgeNumber)</Member>
+        <Member type="Method">private void CombinationForAllK(int n, int k)</Member>
+        <Member type="Method">private int TotalNumberForJ(int n, int j)</Member>
+        <Member type="Method">private void Dfs(int start, int setNum, int currentNumber, int totalNum, int result)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Form1</Name>
+        <Access>Public</Access>
+        <Location left="396" top="161" />
+        <Size width="178" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">bool[] judgeNumber</Member>
+        <Member type="Field">List&lt;int&gt; totalList</Member>
+        <Member type="Constructor">public Form1()</Member>
+        <Member type="Method">private void button1_Click(object sender, EventArgs e)</Member>
+        <Member type="Method">private void button2_Click(object sender, EventArgs e)</Member>
+        <Member type="Method">private void numericUpDown3_ValueChanged()</Member>
+        <Member type="Method">private void numericUpDown4_ValueChanged(object sender, EventArgs e)</Member>
+        <Member type="Method">private void numericUpDown5_ValueChanged(object sender, EventArgs e)</Member>
+        <Member type="Method">private void ChooseTotalList()</Member>
+        <Member type="Method">private void InitializeJudgeNumber()</Member>
+        <Member type="Method">private void DisableNumericUpDown()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Form1Designer</Name>
+        <Access>Public</Access>
+        <Location left="396" top="522" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">private void InitializeComponent()</Member>
+        <Member type="Method">protected void Dispose(bool disposing)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Program</Name>
+        <Access>Public</Access>
+        <Location left="85" top="522" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">static void Main()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>- private 
++ public
+~ void
+# protected
+__ static
+
+</Text>
+        <Location left="301" top="23" />
+        <Size width="160" height="100" />
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Dependency" first="2" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
