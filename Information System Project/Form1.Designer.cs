@@ -52,10 +52,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
@@ -335,6 +335,7 @@
             this.textBox1.Location = new System.Drawing.Point(110, 52);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox1.Size = new System.Drawing.Size(254, 124);
             this.textBox1.TabIndex = 0;
@@ -351,16 +352,25 @@
             this.panel4.Size = new System.Drawing.Size(503, 298);
             this.panel4.TabIndex = 3;
             // 
-            // button5
+            // textBox3
             // 
-            this.button5.Font = new System.Drawing.Font("宋体", 10F);
-            this.button5.Location = new System.Drawing.Point(281, 214);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(193, 71);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "Open the file";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.textBox3.Location = new System.Drawing.Point(119, 19);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox3.Size = new System.Drawing.Size(355, 157);
+            this.textBox3.TabIndex = 3;
+            this.textBox3.WordWrap = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(42, 72);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(71, 18);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Answer:";
             // 
             // button6
             // 
@@ -372,22 +382,16 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // label9
+            // button5
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(42, 72);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(71, 18);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Answer:";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(119, 19);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(355, 157);
-            this.textBox3.TabIndex = 3;
+            this.button5.Font = new System.Drawing.Font("宋体", 10F);
+            this.button5.Location = new System.Drawing.Point(281, 214);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(193, 71);
+            this.button5.TabIndex = 0;
+            this.button5.Text = "Open the file";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Form1
             // 
