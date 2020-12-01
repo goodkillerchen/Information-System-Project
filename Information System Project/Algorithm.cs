@@ -19,12 +19,15 @@ namespace Information_System_Project
         private int k;
         private int j;
         private int s;
-        List<int> setNumberForK = new List<int>();
-        Dictionary<int,int> dictionaryForAllSets=new Dictionary<int,int>();
-        bool[] visit = new bool[10000000];
-        List<int> totalList = new List<int>();
-        bool[] judgeNumber = new bool[46];
-        int[,] C = new int[26,26];
+        private List<int> setNumberForK = new List<int>();
+        private List<int> setNumberForJ = new List<int>();
+        private Dictionary<int, int> dictionaryForAllSets = new Dictionary<int, int>();
+        private Dictionary<int, int> dictionaryForAllSets2 = new Dictionary<int, int>();
+        private bool[] visit = new bool[10000000];
+        private List<int> totalList = new List<int>();
+        private Queue<int> queueForSet = new Queue<int>();
+        private bool[] judgeNumber = new bool[46];
+        private int[,] C = new int[26,26];
         public Algorithm(int n, int k, int j, int s,List<int> totalList, bool[] judgeNumber)
         {
             this.n = n;
@@ -34,47 +37,231 @@ namespace Information_System_Project
             this.totalList = totalList;
             this.judgeNumber = judgeNumber;
         }
-        public int EexcuteAlgorithm()
+        public Queue<int> ExecuteAlgorithm1()
         {
-            for (int i = 0; i < visit.Length; i++)
-                visit[i] = false;
-            CombinationForAllK(n, k);
-            int totalNum=TotalNumberForJ(n, j);
-            var result=int.MaxValue;
-            Random randomOrder = new Random();
-            int num = setNumberForK.Count();
-            while (num > 1)
+            //for (int i = 0; i < visit.Length; i++)
+            //    visit[i] = false;
+            //CombinationForAllK(n, k);
+            //int totalNum=TotalNumberForJ(n, j);
+            //var result=int.MaxValue;
+            //Random randomOrder = new Random();
+            //int num = setNumberForK.Count();
+            //while (num > 1)
+            //{
+            //    num--;
+            //    var k = randomOrder.Next(num + 1);
+            //    var temp = setNumberForK[k];
+            //    setNumberForK[k] = setNumberForK[num];
+            //    setNumberForK[num] = temp;
+            //}
+            //var now = 0;
+            //for (int j1 = (1 << s) - 1; j1 <= setNumberForK[0]; j1++)
+            //{
+            //    int cnt = 0;
+            //    for (int k1 = 0; k1 < n; k1++)
+            //    {
+            //        if ((j1 & (1 << k1)) != 0)
+            //        {
+            //            cnt++;
+            //        }
+            //    }
+            //    if ((j1 & setNumberForK[0]) == j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))
+            //    {
+            //        now++;
+            //        dictionaryForAllSets[j1] = now;
+            //    }
+            //}
+            //visit[0] = false;
+            //Dfs(1,1,now, totalNum,ref result);
+            //return result;
+            GreedyAlgorithm();
+            return queueForSet;
+        }
+        public Queue<int> ExecuteAlgorithm2() 
+        { 
+            GreedyAlgorithm2();
+            return queueForSet;
+        }
+        private void GreedyAlgorithm()
+        {
+            setNumberForK=CombinationForAllNum(n, k);
+            int max;
+            int now = 0;
+            int allNum = TotalNumberForJ(n,j);
+            int node;
+            int index;
+            List<int> vis = new List<int>();
+            List<int> result = new List<int>();
+            while (allNum > 0)
             {
-                num--;
-                var k = randomOrder.Next(num + 1);
-                var temp = setNumberForK[k];
-                setNumberForK[k] = setNumberForK[num];
-                setNumberForK[num] = temp;
-            }
-            var now = 0;
-            for (int j1 = (1 << s) - 1; j1 <= setNumberForK[0]; j1++)
-            {
-                int cnt = 0;
-                for (int k1 = 0; k1 < n; k1++)
+                //Debug.WriteLine(allNum);
+                max = 0;
+                node = 0;
+                index = 0;
+                foreach (var element in setNumberForK)
                 {
-                    if ((j1 & (1 << k1)) != 0)
+                    int numOfUnfound = 0;
+                    for (int j1 = (1 << s) - 1; j1 <= element; j1++)
                     {
-                        cnt++;
+                        int cnt = 0;
+                        for (int k1 = 0; k1 < n; k1++)
+                        {
+                            if ((j1 & (1 << k1)) != 0)
+                            {
+                                cnt++;
+                            }
+                        }
+                        if ((j1 & element) == j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))//hh
+                        {
+                            numOfUnfound++;
+                            vis.Add(j1);
+                        }
                     }
+                    if (max < numOfUnfound)
+                    {
+                        node = index;
+                        max = numOfUnfound;
+                        result.Clear();
+                        foreach(var eachNum in vis)
+                        {
+                            result.Add(eachNum);
+                        }
+                    }
+                    vis.Clear();
+                    index++;
                 }
-                if ((j1 & setNumberForK[0]) == j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))
+                queueForSet.Enqueue(setNumberForK[node]);
+                setNumberForK.RemoveAt(node);
+                foreach(var eachNum in result)
                 {
-                    now++;
-                    dictionaryForAllSets[j1] = now;
+                    dictionaryForAllSets[eachNum] = ++now;
                 }
+                allNum -= max;
+                
             }
-            visit[0] = false;
-            Dfs(1,1,now, totalNum,ref result);
-            return result;
 
         }
-        private void CombinationForAllK(int n,int k)
+        private void GreedyAlgorithm2() 
         {
+            setNumberForK=CombinationForAllNum(n, k);
+            int max;
+            int now = 0;
+            int allNum = TotalNumberForJ(n, j);
+            int node;
+            int index;
+            List<int> vis = new List<int>();
+            List<int> result = new List<int>();
+            while (allNum > 0)
+            {
+                max = 0;
+                node = 0;
+                index = 0;
+                //Debug.WriteLine(allNum + " " + dictionaryForAllSets2.Count());
+                foreach (var element in setNumberForK)
+                {
+                    int numOfUnfound = 0;
+                    //int origin = dictionaryForAllSets2.Count();
+                    //var value = dictionaryForAllSets2.Count();
+                    for (int j1 = (1 << s) - 1; j1 <= element; j1++)
+                    {
+                        int cnt = 0;
+                        var answer = 0;
+                        for (int k1 = 0; k1 < n; k1++)
+                        {
+                            if ((j1 & (1 << k1)) != 0)
+                            {
+                                cnt++;
+                            }
+                        }
+                        if ((j1 & element) == j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))
+                        {
+                            int num = j - s;
+                            numOfSetContainj1(0,j1, num,ref answer);
+                            numOfUnfound += answer;
+                            vis.Add(j1);
+                        }
+                    }
+                    //Debug.WriteLine(dictionaryForAllSets2.Count());
+                    foreach(var eachNum in setNumberForJ)
+                    {
+                        dictionaryForAllSets2.Remove(eachNum);
+                    }
+                    //Debug.WriteLine(dictionaryForAllSets2.Count());
+                    setNumberForJ.Clear();
+                    if (max < numOfUnfound)
+                    {
+                        max = numOfUnfound;
+                        node = index;
+                        result.Clear();
+                        foreach(var eachNum in vis)
+                        {
+                            result.Add(eachNum);
+                        }
+                    }
+                    index++;
+                    vis.Clear();
+                }
+                //Debug.WriteLine(max);
+                SetDictionary2(result);
+                queueForSet.Enqueue(setNumberForK[node]);
+                foreach(var eachNum in result)
+                {
+                    //Debug.Write(eachNum + " ");
+                    dictionaryForAllSets[eachNum] = ++now;
+                }
+                setNumberForK.RemoveAt(node);
+                allNum -= max;
+            }
+        }
+        private void numOfSetContainj1(int node, int j1, int num,ref int answer)
+        {
+            if (num == 0 && !dictionaryForAllSets2.ContainsKey(j1))
+            {
+                answer += 1;
+                setNumberForJ.Add(j1);
+                dictionaryForAllSets2[j1] = dictionaryForAllSets2.Count() + 1;
+                return;
+            }
+            else if (num == 0 && dictionaryForAllSets2.ContainsKey(j1))
+                return;
+            for(int i1 = node; i1 < n; i1++)
+            {
+                if(((1<<i1) & j1) == 0)
+                {
+                    numOfSetContainj1(i1+1, j1 | (1 << i1), num - 1, ref answer);
+                }
+            }
+        }
+
+        private void SetDictionary2(List<int> result)
+        {
+            foreach(var eachNum in result)
+            {
+                FindEachElement(0,eachNum,j-s);
+            }
+        }
+
+        private void FindEachElement(int node,int element,int num)
+        {
+            if (num == 0 && !dictionaryForAllSets2.ContainsKey(element))
+            {
+                dictionaryForAllSets2[element] = dictionaryForAllSets2.Count() + 1;
+                return;
+            }
+            else if (num == 0 && dictionaryForAllSets2.ContainsKey(element))
+                return;
+            for (int i1 = node; i1 < n; i1++)
+            {
+                if (((1 << i1) & element) == 0)
+                {
+                    FindEachElement(i1, element | (1 << i1), num - 1);
+                }
+            }
+        }
+
+        private List<int> CombinationForAllNum(int n,int k)
+        {
+            List<int> Combination = new List<int>();
             for (int i = (1<<(k))-1; i < (1 << n); i++)
             {
                 var cnt = 0;
@@ -87,10 +274,11 @@ namespace Information_System_Project
                 }
                 if (cnt == k)
                 {
-                    setNumberForK.Add(i);
+                    Combination.Add(i);
                     //myBV.Add(new BitVector32(i));
                 }
             }
+            return Combination;
         }
         private int TotalNumberForJ(int n,int j)
         { 
@@ -118,11 +306,12 @@ namespace Information_System_Project
             }
             return C[n, j];
         }
+        
         private void Dfs(int start,int setNum,int currentNumber,int totalNum,ref int result)
         {
 
             int now = currentNumber;
-            Debug.WriteLine(setNum+" "+ currentNumber+" "+totalNum+" "+result);
+            //Debug.WriteLine(setNum+" "+ currentNumber+" "+totalNum+" "+result);
             List<int> vis = new List<int>();
             if (setNum >= result)
                 return;
