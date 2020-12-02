@@ -24,22 +24,21 @@ namespace Information_System_Project
         public Form1()
         {
             InitializeComponent();
-            openFileDialog1.Title = "Choose your DB file(.mdb)";
         }
 
 
-        private void numericUpDown3_ValueChanged(object sender, EventArgs e)//k
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown3.Maximum = numericUpDown2.Value;
 
         }
 
-        private void numericUpDown4_ValueChanged(object sender, EventArgs e)//j
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown4.Maximum = numericUpDown3.Value;
         }
 
-        private void numericUpDown5_ValueChanged(object sender, EventArgs e)//s
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown5.Maximum = numericUpDown4.Value;
         }
@@ -49,8 +48,7 @@ namespace Information_System_Project
             
             ChooseTotalList();
             //DisableNumericUpDown();
-            //textBox2.Enabled = false;
-            //textBox3.Enabled = false;
+            textBox2.Enabled = false;
             button1.Enabled = false;
             button3.Enabled = false;
             button2.Enabled = true;
@@ -78,8 +76,9 @@ namespace Information_System_Project
 
         private void button3_Click(object sender, EventArgs e)// File button
         {
-            
-            
+            DisableNumericUpDown();
+            textBox1.Enabled = false;
+            button1.Enabled = true;
             openFileDialog1.InitialDirectory = "c:\\";
             openFileDialog1.Filter = "Database files (*.mdb)|*.mdb";
             openFileDialog1.FilterIndex = 0;
@@ -88,13 +87,9 @@ namespace Information_System_Project
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                DisableNumericUpDown();
-                textBox1.Enabled = false;
-                button1.Enabled = true;
                 textBox2.Text = openFileDialog1.FileName;
-                CreateTableInToMdb(openFileDialog1.FileName);
             }
-            
+            CreateTableInToMdb(openFileDialog1.FileName);
         }
 
         private void button4_Click(object sender, EventArgs e)//Clear function
