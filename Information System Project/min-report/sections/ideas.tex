@@ -1,0 +1,137 @@
+
+We can divide the probelm into two parts, $j=s$ and $j \neq s$.
+\subsection{$j=s$}
+    \begin{enumerate}
+        \item \textbf{Lemma one: Algorithm to Find Subsets}
+        Now, we have a set whose number of the element is $n$. Then we want to find out all the subsets whose 
+        number of the element is $k$.\\
+        \textbf{Algorithm: \\}
+        \begin{itemize}
+            \item First, we put the orign set to a container, and then we label every element to one(illustrate the picture below). 
+            We assume that the orign set is $S$, $S=\{1,2,3,4,5\}$:\\
+            \begin{table}[H]
+            \centering
+            \begin{tabular}{lllll}
+            \hline
+            \multicolumn{1}{|l|}{5} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} \\ \hline
+            1                       & 1                      & 1                      & 1                      & 1                     
+            \end{tabular}
+            \end{table}
+            Then, the subset which has the same element with the orignal set's, I'll label the element to 1, otherwise I'll label it to 0. For 
+            example, we suppose that one the subset is $S_1$,$S_1=\{1,2,4\}$. We can represent it as below:\\
+            \begin{table}[H]
+            \centering
+            \begin{tabular}{lllll}
+            \hline
+            \multicolumn{1}{|l|}{5} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} \\ \hline
+            0                       & 1                      & 0                      & 1                      & 1                     
+            \end{tabular}
+            \end{table}
+            Now we can change the number below the array to a binary number, which means that each subset can be represented by a unique number from 
+            0(empty set) to $2^n-1$(orignal set). Just like the example above set $S$ can be represented by $11111_2 = 31_{10}$ and $S_1$ can be expressed 
+            as $01011_2 = 11_{10}$
+            \item Now, we know how to find subsets of the original set, but I want to know how to find the subset with the specific number of elements. 
+            Therefore, we only need to know the subset whose binary number representation contains $k$ 1s. As the example above, $S_1=\{1,2,4\}$:
+            \begin{table}[H]
+            \centering
+            \begin{tabular}{lllll}
+            \hline
+            \multicolumn{1}{|l|}{5} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} \\ \hline
+            0                       & 1                      & 0                      & 1                      & 1                     
+            \end{tabular}
+            \end{table}
+            So, the $S_1$ contains three elements, because it has three 1s.\\
+            In this way, we can easily find out the subset whose number of elements is k from $0$ to $2^n-1$, the code illustrates below:
+\begin{lstlisting}
+void findSubsetOfk(int n,int k, vector<int> subsetK){
+    int count=0;//number of 1s
+    for(int i = 1 ; i < (1<<n); i++){
+        for(int j = 0; j < n; j++){
+            //the binary number representation 
+            //of subset has an 1 on the jth position
+            if(i & (1<<j)!=0){
+                count++;
+            }
+        }
+        if(count==k)
+            susetK.empalce_back(i);
+        count=0;
+    }
+
+}
+\end{lstlisting}
+        But,we can easily find that the binary number representation of the subset whose number of elements is k is 
+        no less than $2^k-1$. Therefore, we the code above, we can have an optimization on the i. THe optimized code is 
+        below:\\
+\begin{lstlisting}
+void findSubsetOfk(int n,int k, vector<int> subsetK){
+    int count=0;//number of 1s
+    for(int i = (1<<k)-1 ; i < (1<<n); i++){
+        for(int j = 0; j < n; j++){
+            //the binary number representation 
+            //of subset has an 1 on the jth position
+            if(i & (1<<j)!=0){
+                count++;
+            }
+        }
+        if(count==k)
+            susetK.empalce_back(i);
+        count=0;
+    }
+
+}
+\end{lstlisting}
+        \end{itemize}
+        \begin{itemize}
+            \item Currently, we can use the same way what we say above to find out the subset of the set whose number of element is 
+            $k$ and its number of elements is $s$.
+        \end{itemize}
+    \item \textbf{Lemma two: Calculate the Combination number}\\
+    If we calculate the combination number directly, it is likely to out of bounds of int. So we can use this combination formula below:
+    $$C_n^m=C_{n-1}^{m-1}+C_{n-1}^m$$
+    to calculate the combination number. The code is below:
+\begin{lstlisting}
+int calculateCombinationNumber(int n,int m){
+    for(int i=0;i<=n;i++)
+        C[i][0]=1;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=i;j++)
+            C[i][j]=C[i-1][j-1]+C[i-1][j];
+    return C[n][m];
+}
+\end{lstlisting}
+    \item \textbf{Lemma three: Greedy algorithm to calculate the set covergae}\\
+    We denote that the input is a set $\mathcal{U}$ of n elements, and a collection $S=\{S_1, S_2, . . . , S_m\}$ of $m$ subsets of $\mathcal{U}$ such that
+    $\cup_iS_i=\mathcal{U}$. Our goal is to take as few subsets as possible from $S$ such that their union covers $\mathcal{U}$.
+    We can solve this problem easily by greedy algorithm. The algorithm is below:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|}
+        \hline
+        Greedy Cover($S$,$\mathcal{U}$)                                                     \\
+        1. repeat                                                             \\
+        2.     pick the set that covers the maximum number of uncover element \\
+        3.     mark elements in the chosen set as covered                     \\
+        4.     remove the set from $S$ to the result set                        \\
+        5. done                                                               \\ \hline
+        \end{tabular}
+        \end{table}
+    \end{enumerate}
+    Based on the three lemmas above, we can easily transform the problem to that the set $\mathcal{U}=\{1,2,\cdots, C^j_n\}$, which means that we map each different subset 
+    whose the number of the elements is j to a unique code from 1 to $ C^j_n$. Each subset of $S$, represents the each $k$ set's subsets whose number of elements is j. Ultimately, 
+    we can solve the problem easily.
+\subsection{$j \neq s$}
+    The way to solve the problem is just like the way we mentioned above. However, after finishing finding the subset of the $k$ set whose element number is $s$, we should know how many sets 
+    whose the number of elements is $j$ include it. Therefore, we use dfs(depth first search) to find out them.
+    Assuming that $n=5, s=3, j=4$, and the subset whose number of elements is equal to 3 is labeled as $01011_2$. Therefore, we can expand it as below:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllll}
+        \hline
+        \multicolumn{1}{|l|}{5} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} \\ \hline
+        0                       & 1                      & 0                      & 1                      & 1                      \\
+        0                       & 1                      & 1                      & 1                      & 1                      \\
+        1                       & 1                      & 0                      & 1                      & 1                     
+        \end{tabular}
+        \end{table}
+    Then, we should mark the last two rows of the set above in the $\mathcal{U}$ as covered.
