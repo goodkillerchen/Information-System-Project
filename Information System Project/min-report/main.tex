@@ -1,10 +1,20 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+
 \usepackage{hyperref}
+\hypersetup{hypertex=true,
+            colorlinks=true,
+            linkcolor=red,
+            anchorcolor=red,
+            citecolor=red}
+
 \usepackage{float}
-\usepackage{listings}
 \usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{blindtext}
+\usepackage[textwidth=14.5cm]{geometry}
+\usepackage{listings}
 \lstset{
  columns=fixed,       
  numbers=left,                                        % 在左侧显示行号
@@ -16,12 +26,22 @@
  commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
  stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
  showstringspaces=false,                              % 不显示字符串中的空格
- language=c++,                                        % 设置语言
+ %title=\lstname                                      % 设置语言
 }
+
+\usepackage{caption}
+\captionsetup[figure]{labelfont={bf},
+                      labelformat={default},
+                      labelsep=period,name={Figure.}
+                      }
+\captionsetup[table]{labelfont={bf},
+                      labelformat={default},
+                      labelsep=period,name={Table.}
+                      }
 
 \graphicspath{{images/}}
 
-
+\begin{document}
 \title{\textbf{Project in ME001 -- Sampling system\\Group 1}}
 
 \author{By Chen YuXuan 1809853J-I011-0011 D1\\ \\
@@ -29,30 +49,34 @@
 \& He PeiLin 1809853U-I011-0078 D1}
 
 \date{December 2, 2020}
-\begin{document}
-
 \maketitle
 
 \newpage
 \tableofcontents
 \newpage
 
-\section{Steps to run the program}
-\input{sections/environment}
+\section{Restatement of the Problem}
+\input{sections/problem.tex}
 
-\section{Program test}
-\input{sections/run demo}
-
-\section{Basic ideas}
+\section{Basic Ideas}
 \input{sections/ideas}
 
-\section{Essential codes and functions analysis}
+\section{Essential Codes and Functions Analysis}
 \input{sections/detailed code}
 
-\section{Pros and cons of the program}
-\input{sections/pros and cons}
+\section{Steps to Run the Program}
+\input{sections/environment}
+
+\section{Program Test}
+\input{sections/run demo}
 
 \section{Summary}
 \input{sections/summary}
 
+\bibliographystyle{plain}
+\bibliography{}
+\newpage
+\appendix
+\appendixpage
+\addappheadtotoc
 \end{document}

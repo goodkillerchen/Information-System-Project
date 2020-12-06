@@ -1,0 +1,14 @@
+\contentsline {section}{\numberline {1}Restatement of the Problem}{3}{section.1}%
+\contentsline {section}{\numberline {2}Basic Ideas}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}$j=s$}{3}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Algorithm to Find Subsets}{3}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Calculate the Combination Number}{5}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Greedy Algorithm to Calculate the Set Coveraged}{5}{subsubsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}$j \neq s$}{6}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Essential Codes and Functions Analysis}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Realization of Modifying DB files}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Multi-Threading}{8}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Steps to Run the Program}{9}{section.4}%
+\contentsline {section}{\numberline {5}Program Test}{13}{section.5}%
+\contentsline {section}{\numberline {6}Summary}{13}{section.6}%
+\contentsline {section}{Appendices}{16}{section*.16}%

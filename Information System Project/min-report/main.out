@@ -1,0 +1,14 @@
+\BOOKMARK [1][-]{section.1}{Restatement\040of\040the\040Problem}{}% 1
+\BOOKMARK [1][-]{section.2}{Basic\040Ideas}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{j=s}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Algorithm\040to\040Find\040Subsets}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Calculate\040the\040Combination\040Number}{subsection.2.1}% 5
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Greedy\040Algorithm\040to\040Calculate\040the\040Set\040Coveraged}{subsection.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.2}{j\040=s}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Essential\040Codes\040and\040Functions\040Analysis}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Realization\040of\040Modifying\040DB\040files}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Multi-Threading}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Steps\040to\040Run\040the\040Program}{}% 11
+\BOOKMARK [1][-]{section.5}{Program\040Test}{}% 12
+\BOOKMARK [1][-]{section.6}{Summary}{}% 13
+\BOOKMARK [1][-]{section*.16}{Appendices}{}% 14
