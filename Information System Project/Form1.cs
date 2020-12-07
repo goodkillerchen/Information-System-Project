@@ -18,7 +18,7 @@ namespace Information_System_Project
     {
         Queue<int> vs;
         List<int> totalList = new List<int>();
-        bool[] judgeNumber = new bool[46];
+        bool[] judgeNumber = new bool[55];
         OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
         public Form1()
@@ -45,7 +45,7 @@ namespace Information_System_Project
 
         private void button1_Click(object sender, EventArgs e)//Confim button
         {
-            
+            button1.Enabled=false;
             ChooseTotalList();
             //DisableNumericUpDown();
             textBox2.Enabled = false;
@@ -116,6 +116,7 @@ namespace Information_System_Project
         private void ChooseTotalList()
         {
             InitializeJudgeNumber();
+            totalList.Clear();
             var rand = new Random();
             StringBuilder str = new StringBuilder();
             for (int i = 1; i <= numericUpDown2.Value; i++)
@@ -144,10 +145,12 @@ namespace Information_System_Project
         private void InitializeFunctionForClear()
         {
             EnableNumericUpDown();
+            button1.Enabled = true;
             textBox1.Enabled = true;
             textBox1.Clear();
             //textBox2.Enabled = true;
-            textBox2.Clear();
+            //textBox2.Clear();
+            textBox3.Clear();
             button3.Enabled = true;
         }
 
