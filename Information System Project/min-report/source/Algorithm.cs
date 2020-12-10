@@ -21,14 +21,17 @@ namespace Information_System_Project
         private int s;
         private List<int> setNumberForK = new List<int>();
         private List<int> setNumberForJ = new List<int>();
-        private Dictionary<int, int> dictionaryForAllSets = new Dictionary<int, int>();
-        private Dictionary<int, int> dictionaryForAllSets2 = new Dictionary<int, int>();
+        private Dictionary<int, int> dictionaryForAllSets 
+            = new Dictionary<int, int>();
+        private Dictionary<int, int> dictionaryForAllSets2 
+            = new Dictionary<int, int>();
         private bool[] visit = new bool[10000000];
         private List<int> totalList = new List<int>();
         private Queue<int> queueForSet = new Queue<int>();
         private bool[] judgeNumber = new bool[46];
         private int[,] C = new int[26,26];
-        public Algorithm(int n, int k, int j, int s,List<int> totalList, bool[] judgeNumber)
+        public Algorithm(int n, int k, int j, int s,
+            List<int> totalList, bool[] judgeNumber)
         {
             this.n = n;
             this.k = k;
@@ -63,10 +66,12 @@ namespace Information_System_Project
                 max = 0;
                 node = 0;
                 index = 0;
-                foreach (var element in setNumberForK)
+                foreach (var element 
+                    in setNumberForK)
                 {
                     int numOfUnfound = 0;
-                    for (int j1 = (1 << s) - 1; j1 <= element; j1++)
+                    for (int j1 = (1 << s) - 1; 
+                        j1 <= element; j1++)
                     {
                         int cnt = 0;
                         for (int k1 = 0; k1 < n; k1++)
@@ -76,7 +81,10 @@ namespace Information_System_Project
                                 cnt++;
                             }
                         }
-                        if ((j1 & element) == j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))//hh
+                        if ((j1 & element) == j1 
+                            && cnt == s && 
+                                !dictionaryForAllSets.
+                                    ContainsKey(j1))
                         {
                             numOfUnfound++;
                             vis.Add(j1);
@@ -121,43 +129,37 @@ namespace Information_System_Project
                 max = 0;
                 node = 0;
                 index = 0;
-                //Debug.WriteLine(allNum + " " + dictionaryForAllSets2.Count());
                 foreach (var element in setNumberForK)
                 {
                     int numOfUnfound = 0;
-                    //int origin = dictionaryForAllSets2.Count();
-                    //var value = dictionaryForAllSets2.Count();
-                    for (int j1 = (1 << s) - 1; j1 <= element; j1++)
+                    for (int j1 = (1 << s) - 1; 
+                        j1 <= element; j1++)
                     {
-                        if((j1 & element) != j1)
-                        {
-                            continue;
-                        }
                         int cnt = 0;
                         var answer = 0;
                         for (int k1 = 0; k1 < n; k1++)
                         {
-                            if (cnt > s)
-                                break;
                             if ((j1 & (1 << k1)) != 0)
                             {
                                 cnt++;
                             }
                         }
-                        if (cnt == s && !dictionaryForAllSets.ContainsKey(j1))
+                        if ((j1 & element) == j1 
+                            && cnt == s && 
+                                !dictionaryForAllSets.
+                                    ContainsKey(j1))
                         {
                             int num = j - s;
-                            numOfSetContainj1(0,j1, num,ref answer);
+                            numOfSetContainj1
+                                (0,j1, num,ref answer);
                             numOfUnfound += answer;
                             vis.Add(j1);
                         }
                     }
-                    //Debug.WriteLine(dictionaryForAllSets2.Count());
                     foreach(var eachNum in setNumberForJ)
                     {
                         dictionaryForAllSets2.Remove(eachNum);
                     }
-                    //Debug.WriteLine(dictionaryForAllSets2.Count());
                     setNumberForJ.Clear();
                     if (max < numOfUnfound)
                     {
@@ -183,24 +185,30 @@ namespace Information_System_Project
                 setNumberForK.RemoveAt(node);
                 allNum -= max;
             }
-            Debug.WriteLine(allNum);
         }
-        private void numOfSetContainj1(int node, int j1, int num,ref int answer)
+        private void numOfSetContainj1(int node, int j1, 
+            int num,ref int answer)
         {
-            if (num == 0 && !dictionaryForAllSets2.ContainsKey(j1))
+            if (num == 0 && 
+                !dictionaryForAllSets2.
+                    ContainsKey(j1))
             {
                 answer += 1;
                 setNumberForJ.Add(j1);
-                dictionaryForAllSets2[j1] = dictionaryForAllSets2.Count() + 1;
+                dictionaryForAllSets2[j1] = 
+                    dictionaryForAllSets2.Count() + 1;
                 return;
             }
-            else if (num == 0 && dictionaryForAllSets2.ContainsKey(j1))
+            else if (num == 0 && 
+                dictionaryForAllSets2.
+                    ContainsKey(j1))
                 return;
             for(int i1 = node; i1 < n; i1++)
             {
                 if(((1<<i1) & j1) == 0)
                 {
-                    numOfSetContainj1(i1+1, j1 | (1 << i1), num - 1, ref answer);
+                    numOfSetContainj1(i1+1, j1 | (1 << i1),
+                        num - 1, ref answer);
                 }
             }
         }
@@ -213,20 +221,27 @@ namespace Information_System_Project
             }
         }
 
-        private void FindEachElement(int node,int element,int num)
+        private void FindEachElement(int node,int element,
+            int num)
         {
-            if (num == 0 && !dictionaryForAllSets2.ContainsKey(element))
+            if (num == 0 && 
+                !dictionaryForAllSets2.
+                    ContainsKey(element))
             {
-                dictionaryForAllSets2[element] = dictionaryForAllSets2.Count() + 1;
+                dictionaryForAllSets2[element] 
+                    = dictionaryForAllSets2.Count() + 1;
                 return;
             }
-            else if (num == 0 && dictionaryForAllSets2.ContainsKey(element))
+            else if (num == 0 && 
+                dictionaryForAllSets2.
+                    ContainsKey(element))
                 return;
             for (int i1 = node; i1 < n; i1++)
             {
                 if (((1 << i1) & element) == 0)
                 {
-                    FindEachElement(i1, element | (1 << i1), num - 1);
+                    FindEachElement(i1, element | (1 << i1), 
+                        num - 1);
                 }
             }
         }
@@ -279,11 +294,11 @@ namespace Information_System_Project
             return C[n, j];
         }
         
-        private void Dfs(int start,int setNum,int currentNumber,int totalNum,ref int result)
+        private void Dfs(int start,int setNum,
+            int currentNumber,int totalNum,ref int result)
         {
 
             int now = currentNumber;
-            //Debug.WriteLine(setNum+" "+ currentNumber+" "+totalNum+" "+result);
             List<int> vis = new List<int>();
             if (setNum >= result)
                 return;
@@ -298,7 +313,8 @@ namespace Information_System_Project
             {
                 if (!visit[i])
                 {
-                    for (int j1 = (1 << s) - 1; j1 <= setNumberForK[i]; j1++)
+                    for (int j1 = (1 << s) - 1; 
+                        j1 <= setNumberForK[i]; j1++)
                     {
                         int cnt = 0;
                         for (int k1 = 0; k1 < n; k1++)
@@ -308,16 +324,19 @@ namespace Information_System_Project
                                 cnt++;
                             }
                         }
-                        if ((j1 & setNumberForK[i])==j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))//hh
+                        if ((j1 & setNumberForK[i])==j1 
+                            && cnt == s && 
+                                !dictionaryForAllSets.
+                                    ContainsKey(j1))
                         {
                             now++;
                             dictionaryForAllSets[j1] = now;
                             vis.Add(j1);
-                            //Debug.WriteLine(now + " " + currentNumber+" "+j1+" "+setNumberForK[i]);
                         }
                     }
                     //Debug.WriteLine(" ");
-                    Dfs(i + 1, setNum + 1, now, totalNum, ref result);
+                    Dfs(i + 1, setNum + 1, now, 
+                        totalNum, ref result);
                     visit[i] = false;
                     now = currentNumber;
                    
