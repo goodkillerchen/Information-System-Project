@@ -164,16 +164,22 @@ namespace Information_System_Project
                     //var value = dictionaryForAllSets2.Count();
                     for (int j1 = (1 << s) - 1; j1 <= element; j1++)
                     {
+                        if((j1 & element) != j1)
+                        {
+                            continue;
+                        }
                         int cnt = 0;
                         var answer = 0;
                         for (int k1 = 0; k1 < n; k1++)
                         {
+                            if (cnt > s)
+                                break;
                             if ((j1 & (1 << k1)) != 0)
                             {
                                 cnt++;
                             }
                         }
-                        if ((j1 & element) == j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))
+                        if (cnt == s && !dictionaryForAllSets.ContainsKey(j1))
                         {
                             int num = j - s;
                             numOfSetContainj1(0,j1, num,ref answer);
@@ -212,6 +218,7 @@ namespace Information_System_Project
                 setNumberForK.RemoveAt(node);
                 allNum -= max;
             }
+            Debug.WriteLine(allNum);
         }
         private void numOfSetContainj1(int node, int j1, int num,ref int answer)
         {
