@@ -16,6 +16,7 @@ namespace Information_System_Project
 {
     public partial class Form1 : Form
     {
+        int cnt = 1;
         Queue<int> vs;
         List<int> totalList = new List<int>();
         bool[] judgeNumber = new bool[55];
@@ -24,8 +25,14 @@ namespace Information_System_Project
         public Form1()
         {
             InitializeComponent();
+            listView1.View = View.Details;
+            listView1.GridLines = true;
+            listView1.FullRowSelect = true;
+            listView1.Columns.Add("Times",60);
+            listView1.Columns.Add("Number", 60);
+            listView1.Columns.Add("Data",244);
         }
-
+        
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
@@ -111,6 +118,21 @@ namespace Information_System_Project
         private void button6_Click(object sender, EventArgs e)//Insert to database button
         {
             InsertToMdb(openFileDialog1.FileName);
+            string[] arr = new string[3];
+            arr[0] = cnt.ToString();
+            arr[1] = vs.Count.ToString();
+            arr[2] = numericUpDown1.Value.ToString() + " " + numericUpDown2.Value.ToString() +
+                " " + numericUpDown3.Value.ToString() + " " + numericUpDown4.Value.ToString() + " " + numericUpDown5.Value.ToString();
+            ListViewItem itm=new ListViewItem(arr);
+            listView1.Items.Add(itm);
+            cnt++;
+        }
+
+        private void button7_Click(object sender, EventArgs e)//reset button
+        {
+            listView1.Items.Clear();
+            cnt = 1;
+            DeleteAllRecordFromMdb(openFileDialog1.FileName);
         }
 
         private void ChooseTotalList()
@@ -172,7 +194,7 @@ namespace Information_System_Project
             numericUpDown5.Enabled = true;
         }
 
-        public void CreateTableInToMdb(string fileNameWithPath)
+        private void CreateTableInToMdb(string fileNameWithPath)
         {
             try
             {
@@ -180,21 +202,30 @@ namespace Information_System_Project
                 myConnection.Open();
                 OleDbCommand myCommand = new OleDbCommand();
                 myCommand.Connection = myConnection;
-                myCommand.CommandText = "CREATE TABLE my_table([m] NUMBER, [n] NUMBER, [k] NUMBER, [j] Number," +
-                    "[s] NUMBER, [n numbers] TEXT,[minium number of sets] NUMBER, [answer] TEXT)";
+                myCommand.CommandText = "CREATE TABLE my_table" +
+                    "([order] NUMBER, "+
+                    "[m] NUMBER, " +
+                    "[n] NUMBER, " +
+                    "[k] NUMBER, " +
+                    "[j] Number," +
+                    "[s] NUMBER, " +
+                    "[n numbers] TEXT," +
+                    "[minium number of sets] NUMBER, " +
+                    "[answer] TEXT)";
                 myCommand.ExecuteNonQuery();
                 myCommand.Connection.Close();
             }
             catch { }
         }
 
-        public void InsertToMdb(string fileNameWithPath)
+        private void InsertToMdb(string fileNameWithPath)
         {
             var con = new OleDbConnection("Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + fileNameWithPath);
             var cmd = new OleDbCommand();
             cmd.Connection = con;
-            cmd.CommandText = "insert into my_table ([m],[n],[k],[j],[s],[n numbers],[minium number of sets], [answer])  " +
-                "values (@m, @n, @k,@j,@s,@series1, @number, @answer);";
+            cmd.CommandText = "insert into my_table ([order],[m],[n],[k],[j],[s],[n numbers],[minium number of sets], [answer])  " +
+                "values (@order, @m, @n, @k,@j,@s,@series1, @number, @answer);";
+            cmd.Parameters.AddWithValue("@order", cnt);
             cmd.Parameters.AddWithValue("@m", numericUpDown1.Value);
             cmd.Parameters.AddWithValue("@n", numericUpDown2.Value);
             cmd.Parameters.AddWithValue("@k", numericUpDown3.Value);
@@ -204,6 +235,30 @@ namespace Information_System_Project
             cmd.Parameters.AddWithValue("@number", vs.Count());
             cmd.Parameters.AddWithValue("@answer", series2Fordb());
             con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        private void DeleteRecordFromMdb(string fileNameWithPath,string num)
+        {
+            int number = Int32.Parse(num);
+            var con = new OleDbConnection("Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + fileNameWithPath);
+            var cmd = new OleDbCommand();
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandText = "DELETE FROM [my_table] " +
+                "WHERE [order]=" + number + "";
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        private void DeleteAllRecordFromMdb(string fileNameWithPath)
+        {
+            var con = new OleDbConnection("Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + fileNameWithPath);
+            var cmd = new OleDbCommand();
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandText = "DELETE FROM [my_table] ";
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -259,7 +314,41 @@ namespace Information_System_Project
             return series2;
         }
 
-       
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //var selectedItemText = (listView1.SelectedItem ?? "(none)").ToString();
+            //MessageBox.Show("Selected: " + selectedItemText);
+
+        }
+
+        private void listView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (listView1.SelectedItems.Count >= 1 && e.Button==MouseButtons.Right)
+            {
+                ListViewItem item = listView1.SelectedItems[0];
+
+                //here i check for the Mouse pointer location on click if its contained 
+                // in the actual selected item's bounds or not .
+                // cuz i ran into a problem with the ui once because of that ..
+                if (item.Bounds.Contains(e.Location))
+                {
+                    ContextMenu cm = new ContextMenu();
+                    MenuItem menuItemForDelete = new MenuItem();
+                    menuItemForDelete.Text = "Delete";
+                    menuItemForDelete.Click += new EventHandler(menuItemForDelete_Click);
+                    cm.MenuItems.Add(menuItemForDelete);
+                    listView1.ContextMenu = cm;
+                }
+            }
+        }
+
+        private void menuItemForDelete_Click(object sender,EventArgs e)
+        {
+            var element = listView1.SelectedItems[0];
+            DeleteRecordFromMdb(openFileDialog1.FileName, element.SubItems[0].Text);
+            listView1.Items.Remove(listView1.SelectedItems[0]);
+            
+        }
     }
        
 }
