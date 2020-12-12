@@ -7,10 +7,10 @@
 \contentsline {subsection}{\numberline {2.2}$j \neq s$}{6}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Essential Codes and Functions Analysis}{7}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Realization of Modifying DB files}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Multi-Threading}{8}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Steps to Run the Program}{9}{section.4}%
-\contentsline {section}{\numberline {5}Program Test}{14}{section.5}%
-\contentsline {section}{\numberline {6}Summary}{16}{section.6}%
-\contentsline {section}{Appendices}{17}{section*.17}%
-\contentsline {section}{\numberline {A}Programs for Algorithms}{17}{appendix.A}%
-\contentsline {section}{\numberline {B}Programs for GUI}{26}{appendix.B}%
+\contentsline {subsection}{\numberline {3.2}Multi-Threading}{9}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Steps to Run the Program}{10}{section.4}%
+\contentsline {section}{\numberline {5}Program Test}{15}{section.5}%
+\contentsline {section}{\numberline {6}Summary}{17}{section.6}%
+\contentsline {section}{Appendices}{18}{section*.19}%
+\contentsline {section}{\numberline {A}Programs for Algorithms}{18}{appendix.A}%
+\contentsline {section}{\numberline {B}Programs for GUI}{27}{appendix.B}%

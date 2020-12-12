@@ -29,7 +29,9 @@
  showstringspaces=false,                              % 不显示字符串中的空格
  %title=\lstname                                      % 设置语言
 }
-
+\usepackage{amsmath}
+\numberwithin{figure}{subsection}
+\numberwithin{table}{subsection}
 \usepackage{caption}
 \captionsetup[figure]{labelfont={bf},
                       labelformat={default},
@@ -46,8 +48,8 @@
 \title{\textbf{Project in ME001 -- Sampling system\\Group 1}}
 
 \author{By Chen YuXuan 1809853J-I011-0011 D1\\ \\
-\& Wang Yuan 1809853G-I011-0030 D1\\ \\
-\& He PeiLin 1809853U-I011-0078 D1}
+Wang Yuan 1809853G-I011-0030 D1\\ \\
+He PeiLin 1809853U-I011-0078 D1}
 
 \date{December 2, 2020}
 \maketitle
@@ -60,19 +62,19 @@
 \input{sections/problem.tex}
 
 \section{Basic Ideas}
-\input{sections/ideas}
+\input{sections/ideas.tex}
 
 \section{Essential Codes and Functions Analysis}
-\input{sections/detailed code}
+\input{sections/detailed code.tex}
 
 \section{Steps to Run the Program}
-\input{sections/environment}
+\input{sections/environment.tex}
 
 \section{Program Test}
-\input{sections/run demo}
+\input{sections/run demo.tex}
 
 \section{Summary}
-\input{sections/summary}
+\input{sections/summary.tex}
 
 \bibliographystyle{plain}
 \bibliography{}
