@@ -158,7 +158,7 @@ namespace Information_System_Project
             }
             textBox1.Text = str.ToString();
         }
-        private void InitializeJudgeNumber()
+        private void InitializeJudgeNumber()// set all the number in the totallist to 0
         {
             for (int i = 0; i < judgeNumber.Length; i++)
                 judgeNumber[i] = false;
@@ -194,7 +194,7 @@ namespace Information_System_Project
             numericUpDown5.Enabled = true;
         }
 
-        private void CreateTableInToMdb(string fileNameWithPath)
+        private void CreateTableInToMdb(string fileNameWithPath)//create the table in the database
         {
             try
             {
@@ -218,7 +218,7 @@ namespace Information_System_Project
             catch { }
         }
 
-        private void InsertToMdb(string fileNameWithPath)
+        private void InsertToMdb(string fileNameWithPath)//insert infomation in the database
         {
             var con = new OleDbConnection("Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + fileNameWithPath);
             var cmd = new OleDbCommand();
@@ -239,7 +239,7 @@ namespace Information_System_Project
             con.Close();
         }
 
-        private void DeleteRecordFromMdb(string fileNameWithPath,string num)
+        private void DeleteRecordFromMdb(string fileNameWithPath,string num)//delete records in the database
         {
             int number = Int32.Parse(num);
             var con = new OleDbConnection("Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + fileNameWithPath);
@@ -252,7 +252,7 @@ namespace Information_System_Project
             con.Close();
         }
 
-        private void DeleteAllRecordFromMdb(string fileNameWithPath)
+        private void DeleteAllRecordFromMdb(string fileNameWithPath)//delete all the records in the database
         {
             var con = new OleDbConnection("Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + fileNameWithPath);
             var cmd = new OleDbCommand();
@@ -263,7 +263,7 @@ namespace Information_System_Project
             con.Close();
         }
 
-        private string series1Fordb()
+        private string series1Fordb()// print the numbers choose from m
         {
             string series1 = "";
             foreach (var num in totalList)
@@ -274,7 +274,7 @@ namespace Information_System_Project
             return series1;
         }
 
-        private string series2Fordb()
+        private string series2Fordb()//print the result into database
         {
             string series2 = "";
             int index = 0;
@@ -296,7 +296,7 @@ namespace Information_System_Project
             return series2;
         }
 
-        private string GetSeries2()
+        private string GetSeries2()// print the result in the textbox
         {
             string series2 = "";
             foreach(var num in vs)
@@ -321,7 +321,7 @@ namespace Information_System_Project
 
         }
 
-        private void listView1_MouseDown(object sender, MouseEventArgs e)
+        private void listView1_MouseDown(object sender, MouseEventArgs e)//click the right button of the mouse
         {
             if (listView1.SelectedItems.Count >= 1 && e.Button==MouseButtons.Right)
             {
@@ -342,7 +342,7 @@ namespace Information_System_Project
             }
         }
 
-        private void menuItemForDelete_Click(object sender,EventArgs e)
+        private void menuItemForDelete_Click(object sender,EventArgs e)//set the display button
         {
             var element = listView1.SelectedItems[0];
             DeleteRecordFromMdb(openFileDialog1.FileName, element.SubItems[0].Text);

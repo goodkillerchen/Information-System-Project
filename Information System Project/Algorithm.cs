@@ -28,7 +28,7 @@ namespace Information_System_Project
         private Queue<int> queueForSet = new Queue<int>();
         private bool[] judgeNumber = new bool[46];
         private int[,] C = new int[26,26];
-        public Algorithm(int n, int k, int j, int s,List<int> totalList, bool[] judgeNumber)
+        public Algorithm(int n, int k, int j, int s,List<int> totalList, bool[] judgeNumber)//class of the Algorithm
         {
             this.n = n;
             this.k = k;
@@ -37,27 +37,27 @@ namespace Information_System_Project
             this.totalList = totalList;
             this.judgeNumber = judgeNumber;
         }
-        public Queue<int> ExecuteAlgorithm1()
+        public Queue<int> ExecuteAlgorithm1()//j==s
         {
-            GreedyAlgorithm();
+            GreedyAlgorithm();//j==s algorithm
             return queueForSet;
         }
-        public Queue<int> ExecuteAlgorithm2() 
+        public Queue<int> ExecuteAlgorithm2() //j!=s
         { 
-            GreedyAlgorithm2();
+            GreedyAlgorithm2();//j!=s algorithm
             return queueForSet;
         }
-        private void GreedyAlgorithm()
+        private void GreedyAlgorithm()//the main body of algorithm
         {
-            setNumberForK=CombinationForAllNum(n, k);
+            setNumberForK=CombinationForAllNum(n, k);//find all the k sets
             int max;
             int now = 0;
-            int allNum = TotalNumberForJ(n,j);
+            int allNum = TotalNumberForJ(n,j);// find the number of j sets
             int node;
             int index;
             List<int> vis = new List<int>();
             List<int> result = new List<int>();
-            while (allNum > 0)
+            while (allNum > 0)//Greedy Cover algorithm
             {
                 //Debug.WriteLine(allNum);
                 max = 0;
@@ -66,23 +66,29 @@ namespace Information_System_Project
                 foreach (var element in setNumberForK)
                 {
                     int numOfUnfound = 0;
-                    for (int j1 = (1 << s) - 1; j1 <= element; j1++)
+                    for (int j1 = (1 << s) - 1; j1 <= element; j1++)//find j sets in k sets
                     {
+                        if((j1 & element) != j1)//j sets don't the subsets of k sets
+                        {
+                            continue;
+                        }
                         int cnt = 0;
                         for (int k1 = 0; k1 < n; k1++)
                         {
+                            if (cnt > s)
+                                break;
                             if ((j1 & (1 << k1)) != 0)
                             {
                                 cnt++;
                             }
-                        }
-                        if ((j1 & element) == j1 && cnt == s && !dictionaryForAllSets.ContainsKey(j1))//hh
+                        }//find how many 1s the set has
+                        if (cnt == s && !dictionaryForAllSets.ContainsKey(j1))//find the subset hasn't found
                         {
                             numOfUnfound++;
                             vis.Add(j1);
                         }
                     }
-                    if (max < numOfUnfound)
+                    if (max < numOfUnfound)//find the maximum number of j sets that the k sets cover
                     {
                         node = index;
                         max = numOfUnfound;
@@ -108,7 +114,7 @@ namespace Information_System_Project
         }
         private void GreedyAlgorithm2() 
         {
-            setNumberForK=CombinationForAllNum(n, k);
+            setNumberForK=CombinationForAllNum(n, k);//
             int max;
             int now = 0;
             int allNum = TotalNumberForJ(n, j);
@@ -252,7 +258,7 @@ namespace Information_System_Project
             }
             return Combination;
         }
-        private int TotalNumberForJ(int n,int j)
+        private int TotalNumberForJ(int n,int j)//calcute the combination number
         { 
             for(int i = 0; i <= n; i++)
             {
