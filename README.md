@@ -28,7 +28,7 @@ The detailed information of programming are listed in table:
 |Programming Language| C# |
 |Framework|. Net framework 4.7.2|
 
-Just required to follow the steps in [Project in ME001 – Sampling system.pdf] to run the program.
+Just required to follow the steps in [Project in ME001 – Sampling system.pdf](/Information%20System%20Project/Project%20in%20ME001%20–%20Sampling%20system.pdf) to run the program.
 And the initial layout in figure below:
 ![GUI](/Information%20System%20Project/min-report/images/step.png)
 
