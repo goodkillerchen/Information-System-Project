@@ -58,7 +58,8 @@ namespace Information_System_Project
         }
 
         private void button1_Click
-            (object sender, EventArgs e)//Confim button
+            (object sender, EventArgs e)
+        //Confim button
         {
             button1.Enabled=false;
             ChooseTotalList();
@@ -70,16 +71,16 @@ namespace Information_System_Project
         }
 
         private async void button2_Click
-            (object sender, EventArgs e)// Run buttom
+            (object sender, EventArgs e)\
+        // Run buttom
         {
             button2.Enabled = false;
-            Algorithm algorithm = 
-                new Algorithm(
-                    (int)numericUpDown2.Value, 
-                    (int)numericUpDown3.Value,
-                    (int)numericUpDown4.Value, 
-                    (int)numericUpDown5.Value, 
-                    totalList, judgeNumber);
+            Algorithm algorithm = new Algorithm
+                ((int)numericUpDown2.Value, 
+                (int)numericUpDown3.Value,
+                (int)numericUpDown4.Value, 
+                (int)numericUpDown5.Value, 
+                totalList, judgeNumber);
             if (numericUpDown4.Value 
                 == numericUpDown5.Value)
             {
@@ -100,7 +101,8 @@ namespace Information_System_Project
         }
 
         private void button3_Click
-            (object sender, EventArgs e)// File button
+            (object sender, EventArgs e)
+        // File button
         {
            
             openFileDialog1.InitialDirectory = "c:\\";
@@ -124,37 +126,37 @@ namespace Information_System_Project
         }
 
         private void button4_Click
-            (object sender, EventArgs e)//Clear function
+            (object sender, EventArgs e)
+        //Clear function
         {
             InitializeFunctionForClear();
         }
 
         private void button5_Click
             (object sender, EventArgs e)
-            //Open the file button
+        //Open the file button
         {
             Process proc = new Process();
             proc.EnableRaisingEvents = false;
-            proc.StartInfo.FileName = openFileDialog1.FileName;
+            proc.StartInfo.FileName 
+                = openFileDialog1.FileName;
             proc.Start();
         }
 
         private void button6_Click
             (object sender, EventArgs e)
-            //Insert to database button
+        //Insert to database button
         {
             InsertToMdb(openFileDialog1.FileName);
             string[] arr = new string[3];
             arr[0] = cnt.ToString();
             arr[1] = vs.Count.ToString();
-            arr[2] = numericUpDown1.Value.ToString()
-                 + " " 
-                + numericUpDown2.Value.ToString() +
-                " " + numericUpDown3.Value.ToString() 
-                + " " 
-                + numericUpDown4.Value.ToString() 
-                + " " 
-                + numericUpDown5.Value.ToString();
+            arr[2] = 
+                numericUpDown1.Value.ToString() + 
+                " " + numericUpDown2.Value.ToString() +
+                " " + numericUpDown3.Value.ToString() + 
+                " " + numericUpDown4.Value.ToString() +
+                " " + numericUpDown5.Value.ToString();
             ListViewItem itm=new ListViewItem(arr);
             listView1.Items.Add(itm);
             cnt++;
@@ -175,11 +177,13 @@ namespace Information_System_Project
             totalList.Clear();
             var rand = new Random();
             StringBuilder str = new StringBuilder();
-            for (int i = 1;
-                 i <= numericUpDown2.Value; i++)
+            for (int i = 1; 
+                i <= numericUpDown2.Value; i++)
             {
-                int randNumber = rand.Next
-                    (1, (int)numericUpDown1.Value + 1);
+                int randNumber = 
+                    rand.Next
+                        (1, 
+                        (int)numericUpDown1.Value + 1);
                 if (!judgeNumber[randNumber])
                 {
                     judgeNumber[randNumber] = true;
@@ -196,6 +200,7 @@ namespace Information_System_Project
             textBox1.Text = str.ToString();
         }
         private void InitializeJudgeNumber()
+        // set all the number in the totallist to 0
         {
             for (int i = 0; i < judgeNumber.Length; i++)
                 judgeNumber[i] = false;
@@ -233,19 +238,21 @@ namespace Information_System_Project
 
         private void CreateTableInToMdb
             (string fileNameWithPath)
+            //create the table in the database
         {
             try
             {
                 OleDbConnection myConnection = 
                     new OleDbConnection
-                        ("Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + 
-                        fileNameWithPath);
+                    ("Provider=Microsoft.Jet.OLEDB.4.0; "
+                    + "Data Source=" + fileNameWithPath);
                 myConnection.Open();
                 OleDbCommand myCommand 
                     = new OleDbCommand();
-                myCommand.Connection = myConnection;
-                myCommand.CommandText 
-                    = "CREATE TABLE my_table" +
+                myCommand.Connection 
+                    = myConnection;
+                myCommand.CommandText = 
+                    "CREATE TABLE my_table" +
                     "([order] NUMBER, "+
                     "[m] NUMBER, " +
                     "[n] NUMBER, " +
@@ -261,18 +268,21 @@ namespace Information_System_Project
             catch { }
         }
 
-        private void InsertToMdb(string fileNameWithPath)
+        private void InsertToMdb
+            (string fileNameWithPath)
+        //insert infomation in the database
         {
             var con = new OleDbConnection
-                ("Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " 
+                ("Provider = Microsoft.Jet.OLEDB.4.0;"+
+                " Data Source = " 
                 + fileNameWithPath);
             var cmd = new OleDbCommand();
             cmd.Connection = con;
-            cmd.CommandText = "insert into my_table "+
-                "([order],[m],[n],[k],[j],[s],"+
-                "[n numbers],[minium number of sets], [answer]) " 
-                +"values (@order, @m, @n, "+
-                "@k,@j,@s,@series1, @number, @answer);";
+            cmd.CommandText = "insert into my_table " +
+            "([order],[m],[n],[k],[j],[s],[n numbers]," +
+            "[minium number of sets], [answer])  " +
+            "values (@order, @m, @n, @k,@j,@s,@series1," +
+            " @number, @answer);";
             cmd.Parameters.AddWithValue("@order", cnt);
             cmd.Parameters.AddWithValue
                 ("@m", numericUpDown1.Value);
@@ -297,11 +307,13 @@ namespace Information_System_Project
 
         private void DeleteRecordFromMdb
             (string fileNameWithPath,string num)
+            //delete records in the database
         {
             int number = Int32.Parse(num);
-            var con = new OleDbConnection
-                ("Provider = Microsoft.Jet.OLEDB.4.0; "+
-                "Data Source = " + fileNameWithPath);
+           var con = new OleDbConnection
+                ("Provider = Microsoft.Jet.OLEDB.4.0;"+
+                " Data Source = " 
+                + fileNameWithPath);
             var cmd = new OleDbCommand();
             con.Open();
             cmd.Connection = con;
@@ -312,11 +324,13 @@ namespace Information_System_Project
         }
 
         private void DeleteAllRecordFromMdb
-            (string fileNameWithPath)
+        (string fileNameWithPath)
+        //delete all the records in the database
         {
-             var con = new OleDbConnection
-                ("Provider = Microsoft.Jet.OLEDB.4.0; "+
-                "Data Source = " + fileNameWithPath);
+            var con = new OleDbConnection
+                ("Provider = Microsoft.Jet.OLEDB.4.0;"+
+                " Data Source = " 
+                + fileNameWithPath);
             var cmd = new OleDbCommand();
             con.Open();
             cmd.Connection = con;
@@ -326,6 +340,7 @@ namespace Information_System_Project
         }
 
         private string series1Fordb()
+        // print the numbers choose from m
         {
             string series1 = "";
             foreach (var num in totalList)
@@ -337,6 +352,7 @@ namespace Information_System_Project
         }
 
         private string series2Fordb()
+        //print the result into database
         {
             string series2 = "";
             int index = 0;
@@ -361,6 +377,7 @@ namespace Information_System_Project
         }
 
         private string GetSeries2()
+        // print the result in the textbox
         {
             string series2 = "";
             foreach(var num in vs)
@@ -383,33 +400,32 @@ namespace Information_System_Project
         private void listView1_SelectedIndexChanged
             (object sender, EventArgs e)
         {
-            //var selectedItemText = "+
-            //"(listView1.SelectedItem ?? "(none)")
-            //.ToString();
-            //MessageBox.Show"
-            //+"("Selected: " + selectedItemText);
+    //var selectedItemText = (listView1.SelectedItem ?? "(none)").ToString();
+    //MessageBox.Show("Selected: " + selectedItemText);
 
         }
 
         private void listView1_MouseDown
             (object sender, MouseEventArgs e)
+            //click the right button of the mouse
         {
             if (listView1.SelectedItems.Count >= 1 
                 && e.Button==MouseButtons.Right)
             {
-                ListViewItem item = listView1.SelectedItems[0];
+                ListViewItem item = 
+                    listView1.SelectedItems[0];
 
-    //here i check for the Mouse pointer location on click if its contained 
-    // in the actual selected item's bounds or not .
-    // cuz i ran into a problem with the ui once because of that ..
+//here i check for the Mouse pointer location on click if its contained 
+// in the actual selected item's bounds or not .
+// cuz i ran into a problem with the ui once because of that ..
                 if (item.Bounds.Contains(e.Location))
                 {
                     ContextMenu cm = new ContextMenu();
                     MenuItem menuItemForDelete 
                         = new MenuItem();
                     menuItemForDelete.Text = "Delete";
-                    menuItemForDelete.Click +=
-                         new EventHandler
+                    menuItemForDelete.Click += 
+                        new EventHandler
                             (menuItemForDelete_Click);
                     cm.MenuItems.Add(menuItemForDelete);
                     listView1.ContextMenu = cm;
@@ -418,12 +434,12 @@ namespace Information_System_Project
         }
 
         private void menuItemForDelete_Click
-            (object sender,EventArgs e)
+            (object sender,EventArgs e)//set the display button
         {
             var element = listView1.SelectedItems[0];
             DeleteRecordFromMdb
                 (openFileDialog1.FileName, 
-                    element.SubItems[0].Text);
+                element.SubItems[0].Text);
             listView1.Items.Remove
                 (listView1.SelectedItems[0]);
             
