@@ -38,4 +38,4 @@ In order to make the operation more smooth, all the program environment
 and settings are completed and included in the file package. You can download the folder and click on *Information System Project.exe* to use the visible GUI.
 
 The output in window can be seen in figure below:
-![Demo](/Demo.gif)
+![Demo](/Information%20System%20Project/Demo.gif)
