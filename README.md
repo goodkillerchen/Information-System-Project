@@ -24,7 +24,6 @@ The detailed information of programming are listed in table:
 |Operation System|Windows SDK edition: 10.0|
 |Integrated Development| Environment Visual Studio 2019(v142)|
 |Solution Settings Release| in x86 Platform|
-|Optimization| O2 optimize|
 |Programming Language| C# |
 |Framework|. Net framework 4.7.2|
 
